@@ -1,14 +1,20 @@
 FROM ruby:2.6.0
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+# Install required packages using Ubuntu repositories
+RUN apt-get update -qq && \
+    apt-get install -y build-essential libpq-dev nodejs
 
-RUN mkdir /app
+# Set the working directory
 WORKDIR /app
 
-ADD Gemfile /app/Gemfile
-ADD Gemfile.lock /app/Gemfile.lock
+# Copy Gemfiles
+COPY Gemfile Gemfile.lock ./
+
+# Install gems
 RUN bundle install
 
-ADD . /app
+# Copy the rest of the application code
+COPY . .
 
-CMD ["/bin/bash", "./bin/d_cmd.sh"]
+# Define the default command to run the application
+CMD ["./bin/d_cmd.sh"]
