@@ -6,10 +6,10 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: bookstore
-      MYSQL_USER: appuser
-      MYSQL_PASSWORD: password
+    
+      db-name: mydb1
+      MONGO_DB_USERNAME: admin
+      MONGO_DB_PASSWORD: Admin1234
     ports:
       - "3316:3306"
 
@@ -23,10 +23,10 @@ services:
     depends_on:
       - db
     environment:
-      DB_USER: root
-      DB_NAME: bookstore
-      DB_PASSWORD: password
-      DB_HOST: db
+      db-name: mydb1
+      MONGO_DB_USERNAME: admin
+      MONGO_DB_PASSWORD: Admin1234
+      DB_HOST: mydb1.cj0xd5qbiilr.ap-south-1.rds.amazonaws.com
 
   # # Secrets from individual files on config/app_secret/*
   # app-prod:
